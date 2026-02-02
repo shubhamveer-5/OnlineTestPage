@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My GitHub Pages Test</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #0b1220;
+      color: #e6eaf2;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 520px;
+      width: calc(100% - 32px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    h1 { margin: 0 0 10px; font-size: 24px; }
+    p { margin: 0 0 14px; line-height: 1.5; opacity: 0.9; }
+    button {
+      cursor: pointer;
+      border: 0;
+      background: #4f46e5;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+    button:hover { background: #4338ca; }
+    .small { font-size: 13px; opacity: 0.8; margin-top: 12px; }
+    code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>✅ Hello from GitHub Pages!</h1>
+    <p>If you can see this page, your deployment worked 🎉</p>
+    <button id="btn">Click me</button>
+    <p class="small" id="msg">Tip: Edit <code>index.html</code> and push again to update.</p>
+  </div>
+
+  <script>
+    document.getElementById("btn").addEventListener("click", () => {
+      document.getElementById("msg").textContent =
+        "Button clicked ✅ Deployed successfully on " + new Date().toLocaleString();
+    });
+  </script>
+</body>
+</html>
