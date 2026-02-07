@@ -390,28 +390,6 @@
             transform: scale(1.1);
         }
 
-        /* Music Control Button */
-        .music-control {
-            position: fixed;
-            bottom: 250px;
-            left: 30px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 50%;
-            font-size: 1.5em;
-            cursor: pointer;
-            z-index: 100;
-            transition: all 0.3s ease;
-        }
-
-        .music-control:hover {
-            transform: scale(1.1);
-            background: rgba(255, 255, 255, 0.3);
-        }
-
         @keyframes pulse {
             0%, 100% { box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4); }
             50% { box-shadow: 0 5px 30px rgba(255, 107, 107, 0.8); }
@@ -587,8 +565,8 @@
     <!-- Party Mode Button -->
     <button class="party-button" onclick="togglePartyMode()">🎉 Party Mode! 🎉</button>
 
-    <!-- Background Music (plays continuously) -->
-    <audio id="backgroundMusic" loop autoplay>
+    <!-- Background Music (plays when cake is clicked) -->
+    <audio id="backgroundMusic" loop>
         <source src="andriig-happy-birthday-471211.mp3" type="audio/mpeg">
     </audio>
 
@@ -597,8 +575,7 @@
         <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_48f45fbb9e.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Music Control Button -->
-    <button class="music-control" id="musicControl" onclick="toggleMusic()">🔊</button>
+    <!-- Surprise Box -->
 
     <!-- Surprise Box -->
     <div class="surprise-box" id="surpriseBox">
@@ -683,6 +660,8 @@
             <div class="gif-container">
                 <img src="https://media.giphy.com/media/g5R9dok94mrIvplmZd/giphy.gif" alt="Birthday GIF 1">
                 <img src="https://media.giphy.com/media/oW4csEbiMzVjq/giphy.gif" alt="Birthday GIF 2">
+                <img src="https://media.giphy.com/media/l0HlQ7LRalQqdWfao/giphy.gif" alt="Birthday GIF 3">
+                <img src="https://media.giphy.com/media/feio2yIUMtdqWjRiaF/giphy.gif" alt="Birthday GIF 4">
             </div>
         </section>
 
@@ -727,6 +706,13 @@
             const closeBtn = document.getElementById('closeBtn');
             const surpriseTitle = document.getElementById('surpriseTitle');
             const blowingCandles = document.getElementById('blowingCandles');
+            const bgMusic = document.getElementById('backgroundMusic');
+            
+            // Start background music when cake is clicked
+            if (bgMusic.paused) {
+                bgMusic.volume = 0.5; // Set volume to 50%
+                bgMusic.play();
+            }
             
             surpriseBox.classList.add('show');
             
@@ -828,30 +814,7 @@
         window.addEventListener('load', () => {
             createConfetti();
             setInterval(createConfetti, 5000);
-            
-            // Try to play background music on load
-            const bgMusic = document.getElementById('backgroundMusic');
-            bgMusic.play().catch(e => {
-                console.log('Autoplay blocked - user needs to interact first');
-            });
         });
-
-        // Music control toggle
-        let musicPlaying = true;
-        function toggleMusic() {
-            const bgMusic = document.getElementById('backgroundMusic');
-            const musicControl = document.getElementById('musicControl');
-            
-            if (musicPlaying) {
-                bgMusic.pause();
-                musicControl.textContent = '🔇';
-                musicPlaying = false;
-            } else {
-                bgMusic.play();
-                musicControl.textContent = '🔊';
-                musicPlaying = true;
-            }
-        }
 
         // Party Mode Toggle
         let partyMode = false;
