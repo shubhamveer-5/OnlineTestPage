@@ -390,6 +390,28 @@
             transform: scale(1.1);
         }
 
+        /* Music Control Button */
+        .music-control {
+            position: fixed;
+            bottom: 250px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50%;
+            font-size: 1.5em;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
         @keyframes pulse {
             0%, 100% { box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4); }
             50% { box-shadow: 0 5px 30px rgba(255, 107, 107, 0.8); }
@@ -565,10 +587,18 @@
     <!-- Party Mode Button -->
     <button class="party-button" onclick="togglePartyMode()">🎉 Party Mode! 🎉</button>
 
+    <!-- Background Music (plays continuously) -->
+    <audio id="backgroundMusic" loop autoplay>
+        <source src="music/background.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- Party Music -->
     <audio id="partyMusic" loop>
         <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_48f45fbb9e.mp3" type="audio/mpeg">
     </audio>
+
+    <!-- Music Control Button -->
+    <button class="music-control" id="musicControl" onclick="toggleMusic()">🔊</button>
 
     <!-- Surprise Box -->
     <div class="surprise-box" id="surpriseBox">
@@ -798,7 +828,30 @@
         window.addEventListener('load', () => {
             createConfetti();
             setInterval(createConfetti, 5000);
+            
+            // Try to play background music on load
+            const bgMusic = document.getElementById('backgroundMusic');
+            bgMusic.play().catch(e => {
+                console.log('Autoplay blocked - user needs to interact first');
+            });
         });
+
+        // Music control toggle
+        let musicPlaying = true;
+        function toggleMusic() {
+            const bgMusic = document.getElementById('backgroundMusic');
+            const musicControl = document.getElementById('musicControl');
+            
+            if (musicPlaying) {
+                bgMusic.pause();
+                musicControl.textContent = '🔇';
+                musicPlaying = false;
+            } else {
+                bgMusic.play();
+                musicControl.textContent = '🔊';
+                musicPlaying = true;
+            }
+        }
 
         // Party Mode Toggle
         let partyMode = false;
